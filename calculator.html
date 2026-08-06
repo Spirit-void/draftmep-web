@@ -51,6 +51,7 @@
         <div class="calc-content">
 
           <div id="cat-electrical" class="calc-category">
+
             <div class="calc-card">
               <h2>1. Power Triangle & Current</h2>
               <div class="formula">S = √3·V·I · P = S·cosφ · Q = S·sinφ · S = √(P²+Q²)</div>
@@ -66,9 +67,105 @@
               <button class="btn btn-primary" onclick="hitungSegitigaDaya()">Calculate</button>
               <div class="calc-result" id="sd-result"><h4>Result</h4><div class="value" id="sd-result-text">—</div></div>
             </div>
+
+            <div class="calc-card">
+              <h2>2. Breaker & Cable Sizing</h2>
+              <div class="formula">In = P/(√3·V·cosφ) → ×125% → select breaker & cable ampacity</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Power (kW)</label><input type="number" id="sb-p" placeholder="11"></div>
+                <div class="input-group"><label>Voltage (V)</label><input type="number" id="sb-v" value="380"></div>
+                <div class="input-group"><label>cos φ</label><input type="number" id="sb-cos" value="0.85" step="0.01"></div>
+                <div class="input-group"><label>Phase</label><select id="sb-phase"><option value="3">3-Phase</option><option value="1">1-Phase</option></select></div>
+                <div class="input-group"><label>Installation safety (%)</label><input type="number" id="sb-safety" value="25"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungSizingBreaker()">Calculate</button>
+              <div class="calc-result" id="sb-result"><h4>Result</h4><div class="value" id="sb-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>3. Voltage Drop</h2>
+              <div class="formula">3φ: ΔU = √3 · I · (R cosφ + X sinφ) · L/1000</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Phase</label><select id="vd-phase"><option value="3">3-Phase</option><option value="1">1-Phase</option></select></div>
+                <div class="input-group"><label>Voltage (V)</label><input type="number" id="vd-v" value="380"></div>
+                <div class="input-group"><label>Current (A)</label><input type="number" id="vd-i" placeholder="25"></div>
+                <div class="input-group"><label>Length (m)</label><input type="number" id="vd-l" placeholder="50"></div>
+                <div class="input-group"><label>R (Ω/km)</label><input type="number" id="vd-r" placeholder="0" step="0.01"></div>
+                <div class="input-group"><label>X (Ω/km)</label><input type="number" id="vd-x" value="0.08" step="0.01"></div>
+                <div class="input-group"><label>cos φ</label><input type="number" id="vd-cos" value="0.85" step="0.01"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungVoltageDrop()">Calculate</button>
+              <div class="calc-result" id="vd-result"><h4>Result</h4><div class="value" id="vd-result-text">—</div></div>
+              <div class="calc-notes">Max limit: Lighting 3% | Other loads 5% | General 4%</div>
+            </div>
+
+            <div class="calc-card">
+              <h2>4. Capacitor Bank</h2>
+              <div class="formula">Qc = P × (tan φ₁ − tan φ₂)</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Power (kW)</label><input type="number" id="cb-p" placeholder="100"></div>
+                <div class="input-group"><label>Initial cos φ</label><input type="number" id="cb-cos1" value="0.85" step="0.01"></div>
+                <div class="input-group"><label>Target cos φ</label><input type="number" id="cb-cos2" value="0.95" step="0.01"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungCapacitorBank()">Calculate</button>
+              <div class="calc-result" id="cb-result"><h4>Result</h4><div class="value" id="cb-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>5. Cable Resistance</h2>
+              <div class="formula">R = ρ / S × L/1000</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Cross-section (mm²)</label><input type="number" id="rk-s" placeholder="16"></div>
+                <div class="input-group"><label>Length (m)</label><input type="number" id="rk-l" placeholder="50"></div>
+                <div class="input-group"><label>Material</label><select id="rk-mat"><option value="cu">Copper (Cu)</option><option value="al">Aluminium (Al)</option></select></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungResistansiKabel()">Calculate</button>
+              <div class="calc-result" id="rk-result"><h4>Result</h4><div class="value" id="rk-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>6. Transformer & Genset Sizing</h2>
+              <div class="formula">S trafo = ΣP × 1.2 · P genset = ΣP × DF / cosφ × 1.2</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Total Power (kW)</label><input type="number" id="tg-p" placeholder="200"></div>
+                <div class="input-group"><label>Demand Factor</label><input type="number" id="tg-df" value="1.2" step="0.1"></div>
+                <div class="input-group"><label>cos φ</label><input type="number" id="tg-cos" value="0.85" step="0.01"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungTrafoGenset()">Calculate</button>
+              <div class="calc-result" id="tg-result"><h4>Result</h4><div class="value" id="tg-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>7. Number of Light Fixtures</h2>
+              <div class="formula">N = (E × A) / (η × Q × d) · Q = lm/W × Watt</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Lux (E)</label><input type="number" id="al-e" placeholder="300"></div>
+                <div class="input-group"><label>Area (m²)</label><input type="number" id="al-a" placeholder="50"></div>
+                <div class="input-group"><label>η (efficiency)</label><input type="number" id="al-eta" value="0.5" step="0.05"></div>
+                <div class="input-group"><label>d (depreciation)</label><input type="number" id="al-d" value="0.8" step="0.05"></div>
+                <div class="input-group"><label>lm/W</label><input type="number" id="al-lmw" value="80"></div>
+                <div class="input-group"><label>Watt/fixture</label><input type="number" id="al-watt" value="36"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungArmaturLampu()">Calculate</button>
+              <div class="calc-result" id="al-result"><h4>Result</h4><div class="value" id="al-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>8. Short Circuit Current (Isc)</h2>
+              <div class="formula">Isc ≈ (S × 1000) / (√3 × V × uk/100)</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Transformer Capacity (kVA)</label><input type="number" id="sc-s" placeholder="500"></div>
+                <div class="input-group"><label>Voltage (V)</label><input type="number" id="sc-v" value="380"></div>
+                <div class="input-group"><label>uk (%)</label><input type="number" id="sc-uk" value="4" step="0.1"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungShortCircuit()">Calculate</button>
+              <div class="calc-result" id="sc-result"><h4>Result</h4><div class="value" id="sc-result-text">—</div></div>
+            </div>
+
           </div>
 
           <div id="cat-hvac" class="calc-category" style="display:none;">
+
             <div class="calc-card">
               <h2>1. Room AC Capacity</h2>
               <div class="formula">Q = 0.59 × W × L × H × I × E (Btu/h)</div>
@@ -82,10 +179,85 @@
               </div>
               <button class="btn btn-primary" onclick="hitungKapasitasAC()">Calculate</button>
               <div class="calc-result" id="ac-result"><h4>Result</h4><div class="value" id="ac-result-text">—</div></div>
+              <div class="calc-notes">I: 10 (insulated) / 18 (not insulated). E: 16 north, 17 east, 18 south, 20 west.</div>
             </div>
+
+            <div class="calc-card">
+              <h2>2. AC Power Consumption</h2>
+              <div class="formula">P = (Btu/h / 9000) × 746 × 1.3</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Capacity (Btu/h)</label><input type="number" id="dac-btu" placeholder="9000"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungDayaAC()">Calculate</button>
+              <div class="calc-result" id="dac-result"><h4>Result</h4><div class="value" id="dac-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>3. Refrigerant Pipe Size</h2>
+              <div class="formula">Lookup based on capacity (PK)</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Capacity (PK)</label><input type="number" id="pr-pk" placeholder="2" step="0.5"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungPipaRefrigerant()">Find Size</button>
+              <div class="calc-result" id="pr-result"><h4>Result</h4><div class="value" id="pr-result-text">—</div></div>
+              <div class="calc-notes">Gas pipe is always larger than liquid. For VRF / length > 15m check manufacturer manual.</div>
+            </div>
+
+            <div class="calc-card">
+              <h2>4. Duct Sizing</h2>
+              <div class="formula">A = Q / v</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Air flow</label><input type="number" id="duct-q" placeholder="1000"></div>
+                <div class="input-group"><label>Unit</label><select id="duct-unit"><option value="cfm">CFM</option><option value="m3h">m³/h</option></select></div>
+                <div class="input-group"><label>Velocity (m/s)</label><input type="number" id="duct-v" value="5" step="0.5"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungDucting()">Calculate</button>
+              <div class="calc-result" id="duct-result"><h4>Result</h4><div class="value" id="duct-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>5. Number of Diffusers / Grilles</h2>
+              <div class="formula">S = (Q × 472) / (p × l × v)</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Air flow (CFM)</label><input type="number" id="dif-q" placeholder="500"></div>
+                <div class="input-group"><label>Diffuser width (mm)</label><input type="number" id="dif-p" value="300"></div>
+                <div class="input-group"><label>Diffuser length (mm)</label><input type="number" id="dif-l" value="300"></div>
+                <div class="input-group"><label>Velocity (m/s)</label><input type="number" id="dif-v" value="2.5" step="0.1"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungDiffuser()">Calculate</button>
+              <div class="calc-result" id="dif-result"><h4>Result</h4><div class="value" id="dif-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>6. AHU / FCU Fan Power</h2>
+              <div class="formula">P = Q × 1.7 × (ΔP + v²×0.6) / (η × 3600)</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Air flow (CFM)</label><input type="number" id="ahu-q" placeholder="2000"></div>
+                <div class="input-group"><label>Pressure Drop (Pa)</label><input type="number" id="ahu-dp" value="375"></div>
+                <div class="input-group"><label>Outlet velocity (m/s)</label><input type="number" id="ahu-v" value="3"></div>
+                <div class="input-group"><label>Fan efficiency</label><input type="number" id="ahu-eff" value="0.8" step="0.05"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungDayaAHU()">Calculate</button>
+              <div class="calc-result" id="ahu-result"><h4>Result</h4><div class="value" id="ahu-result-text">—</div></div>
+              <div class="calc-notes">AHU typically 375 Pa (1.5 inWg), FCU 250 Pa.</div>
+            </div>
+
+            <div class="calc-card">
+              <h2>7. CHWS/R Pump Capacity</h2>
+              <div class="formula">Q = X × QAC (TR)</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Chiller Capacity (TR)</label><input type="number" id="chws-tr" placeholder="50"></div>
+                <div class="input-group"><label>Chiller Type</label><select id="chws-jenis"><option value="air">Air Cooled (9.1 LPM/TR)</option><option value="water">Water Cooled (11.4 LPM/TR)</option></select></div>
+                <div class="input-group"><label>Pump safety (%)</label><input type="number" id="chws-sf" value="15"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungPompaCHWS()">Calculate</button>
+              <div class="calc-result" id="chws-result"><h4>Result</h4><div class="value" id="chws-result-text">—</div></div>
+            </div>
+
           </div>
 
           <div id="cat-plumbing" class="calc-category" style="display:none;">
+
             <div class="calc-card">
               <h2>1. Plumbing Pipe Diameter</h2>
               <div class="formula">d = √( (200 × Q) / (3 × π × v) )</div>
@@ -95,10 +267,54 @@
               </div>
               <button class="btn btn-primary" onclick="hitungDiameterPipa()">Calculate</button>
               <div class="calc-result" id="dp-result"><h4>Result</h4><div class="value" id="dp-result-text">—</div></div>
+              <div class="calc-notes">Typical velocity: distribution 1–2 m/s · suction 0.6–1.2 m/s · discharge 1.5–3 m/s</div>
             </div>
+
+            <div class="calc-card">
+              <h2>2. Plumbing Pump Head</h2>
+              <div class="formula">H = Lv + (Lt × f) + Pf + safety%</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Vertical Height Lv (m)</label><input type="number" id="hp-lv" placeholder="15"></div>
+                <div class="input-group"><label>Total Pipe Length Lt (m)</label><input type="number" id="hp-lt" placeholder="40"></div>
+                <div class="input-group"><label>Friction factor f (m/m)</label><input type="number" id="hp-f" value="0.04" step="0.01"></div>
+                <div class="input-group"><label>Fixture Pressure Pf (m)</label><input type="number" id="hp-pf" value="10"></div>
+                <div class="input-group"><label>Safety (%)</label><input type="number" id="hp-sf" value="10"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungHeadPompa()">Calculate</button>
+              <div class="calc-result" id="hp-result"><h4>Result</h4><div class="value" id="hp-result-text">—</div></div>
+              <div class="calc-notes">Typical Pf: faucet 3–5 m · shower 7–10 m · flush valve 10–15 m</div>
+            </div>
+
+            <div class="calc-card">
+              <h2>3. Plumbing Pump Power</h2>
+              <div class="formula">P = (0.163 × H × Q × f) / η</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Head (m)</label><input type="number" id="dpy-h" placeholder="25"></div>
+                <div class="input-group"><label>Flow rate (LPM)</label><input type="number" id="dpy-q" placeholder="100"></div>
+                <div class="input-group"><label>Efficiency η</label><input type="number" id="dpy-eta" value="0.6" step="0.05"></div>
+                <div class="input-group"><label>Motor factor</label><input type="number" id="dpy-f" value="1.1" step="0.05"></div>
+                <div class="input-group"><label>Power safety (%)</label><input type="number" id="dpy-sf" value="15"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungDayaPompa()">Calculate</button>
+              <div class="calc-result" id="dpy-result"><h4>Result</h4><div class="value" id="dpy-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>4. Ground Tank Capacity</h2>
+              <div class="formula">Estimate volume based on daily demand</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Water demand (liters/day)</label><input type="number" id="gt-qd" placeholder="5000"></div>
+                <div class="input-group"><label>Operating hours</label><input type="number" id="gt-jam" value="8"></div>
+                <div class="input-group"><label>Storage safety (%)</label><input type="number" id="gt-storage" value="20"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungGroundTank()">Calculate</button>
+              <div class="calc-result" id="gt-result"><h4>Result</h4><div class="value" id="gt-result-text">—</div></div>
+            </div>
+
           </div>
 
           <div id="cat-fire" class="calc-category" style="display:none;">
+
             <div class="calc-card">
               <h2>1. Fire Pump Capacity</h2>
               <div class="formula">Sprinkler 80 LPM/point · IHB 400 LPM · Pillar 1000 LPM</div>
@@ -106,22 +322,93 @@
                 <div class="input-group"><label>Number of Sprinkler Points</label><input type="number" id="ff-spr" placeholder="20"></div>
                 <div class="input-group"><label>Number of IHB</label><input type="number" id="ff-ihb" placeholder="2"></div>
                 <div class="input-group"><label>Number of Hydrant Pillars</label><input type="number" id="ff-pillar" placeholder="1"></div>
+                <div class="input-group"><label>Jockey (%)</label><input type="number" id="ff-jockey" value="10"></div>
+                <div class="input-group"><label>Design margin (%)</label><input type="number" id="ff-margin" value="10"></div>
               </div>
               <button class="btn btn-primary" onclick="hitungKapasitasPompaFF()">Calculate</button>
               <div class="calc-result" id="ff-result"><h4>Result</h4><div class="value" id="ff-result-text">—</div></div>
             </div>
+
+            <div class="calc-card">
+              <h2>2. Fire Pump Head</h2>
+              <div class="formula">H = Lvert + Ljauh×f + (Phyd + Pspr)×10</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Vertical Height (m)</label><input type="number" id="ffh-lv" placeholder="30"></div>
+                <div class="input-group"><label>Farthest Distance (m)</label><input type="number" id="ffh-lj" placeholder="50"></div>
+                <div class="input-group"><label>Friction factor f</label><input type="number" id="ffh-f" value="0.05" step="0.01"></div>
+                <div class="input-group"><label>Hydrant Pressure (bar)</label><input type="number" id="ffh-ph" value="4"></div>
+                <div class="input-group"><label>Sprinkler Pressure (bar)</label><input type="number" id="ffh-ps" value="1"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungHeadPompaFF()">Calculate</button>
+              <div class="calc-result" id="ffh-result"><h4>Result</h4><div class="value" id="ffh-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>3. Fire Pump Power</h2>
+              <div class="formula">P = 0.163 × H × Q(LPS) × SF / η</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Head (m)</label><input type="number" id="ffd-h" placeholder="50"></div>
+                <div class="input-group"><label>Flow rate (LPM)</label><input type="number" id="ffd-q" placeholder="1000"></div>
+                <div class="input-group"><label>Efficiency η</label><input type="number" id="ffd-eta" value="0.65" step="0.05"></div>
+                <div class="input-group"><label>Safety Factor (multiplier)</label><input type="number" id="ffd-sf" value="1.15" step="0.01"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungDayaPompaFF()">Calculate</button>
+              <div class="calc-result" id="ffd-result"><h4>Result</h4><div class="value" id="ffd-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>4. Fire Tank Capacity</h2>
+              <div class="formula">V = Q × t × conversion</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Pump Flow Rate</label><input type="number" id="fft-q" placeholder="1000"></div>
+                <div class="input-group"><label>Unit</label><select id="fft-unit"><option value="lpm">LPM</option><option value="usgpm">USGPM</option></select></div>
+                <div class="input-group"><label>Duration (minutes)</label><input type="number" id="fft-t" value="30"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungTangkiFF()">Calculate</button>
+              <div class="calc-result" id="fft-result"><h4>Result</h4><div class="value" id="fft-result-text">—</div></div>
+            </div>
+
+            <div class="calc-card">
+              <h2>5. Fire Pipe Diameter</h2>
+              <div class="formula">d = √(200 × Q / (3 × π × v))</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Flow rate (LPM)</label><input type="number" id="ffp-q" placeholder="1000"></div>
+                <div class="input-group"><label>Velocity (m/s)</label><input type="number" id="ffp-v" value="3.5" step="0.1"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungDiameterPipaFF()">Calculate</button>
+              <div class="calc-result" id="ffp-result"><h4>Result</h4><div class="value" id="ffp-result-text">—</div></div>
+              <div class="calc-notes">Typical fire pipe velocity: 3.0 – 4.5 m/s</div>
+            </div>
+
+            <div class="calc-card">
+              <h2>6. Sprinkler Pipe Size</h2>
+              <div class="formula">Recommended pipe based on sprinkler points</div>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Sprinkler points</label><input type="number" id="ffsp-points" placeholder="1"></div>
+                <div class="input-group"><label>Flow per point (LPM)</label><input type="number" id="ffsp-flow" value="80"></div>
+              </div>
+              <button class="btn btn-primary" onclick="hitungSprinklerPipeSizeFF()">Calculate</button>
+              <div class="calc-result" id="ffsp-result"><h4>Result</h4><div class="value" id="ffsp-result-text">—</div></div>
+              <div class="calc-notes">Example: 1 sprinkler point typically uses Ø25 mm.</div>
+            </div>
+
           </div>
 
           <div id="cat-electronic" class="calc-category" style="display:none;">
             <div class="calc-card">
               <h2>1. Speaker SPL & Count</h2>
-              <div class="formula">SPL = Sensitivity + 10·log₁₀(Power) - 20·log₁₀(Distance)</div>
+              <div class="formula">SPL = Sensitivity + 10·log₁₀(Power) - 20·log₁₀(Distance) + 10·log₁₀(Count)</div>
               <div class="calc-inputs">
-                <div class="input-group"><label>Speaker sensitivity (dB)</label><input type="number" id="sp-sensitivity" value="90"></div>
+                <div class="input-group"><label>Speaker sensitivity (dB @ 1W/1m)</label><input type="number" id="sp-sensitivity" value="90" step="0.1"></div>
                 <div class="input-group"><label>Power per speaker (W)</label><input type="number" id="sp-power" value="50"></div>
+                <div class="input-group"><label>Distance to listener (m)</label><input type="number" id="sp-distance" value="10" step="0.1"></div>
+                <div class="input-group"><label>Number of speakers</label><input type="number" id="sp-count" value="1"></div>
+                <div class="input-group"><label>Desired SPL target (optional dB)</label><input type="number" id="sp-target" placeholder="85"></div>
+                <div class="input-group"><label>Required margin (dB)</label><input type="number" id="sp-margin" value="3"></div>
               </div>
               <button class="btn btn-primary" onclick="hitungSPL()">Calculate</button>
               <div class="calc-result" id="sp-result"><h4>Result</h4><div class="value" id="sp-result-text">—</div></div>
+              <div class="calc-notes">The calculator estimates SPL from speaker sensitivity, power, distance, and speaker count.</div>
             </div>
           </div>
 
@@ -129,10 +416,63 @@
             <div class="calc-card">
               <h2>BTU/h → PK / TR</h2>
               <div class="calc-inputs">
-                <div class="input-group"><label>BTU/h</label><input type="number" id="btu-value" placeholder="12000"></div>
+                <div class="input-group"><label>BTU/h</label><input type="number" id="btu-value" placeholder="e.g. 12000"></div>
               </div>
               <button class="btn btn-primary" onclick="convertBTUtoPKTR()">Convert</button>
               <div class="calc-result" id="btu-result"><h4>Result</h4><div class="value">—</div></div>
+            </div>
+            <div class="calc-card">
+              <h2>PK → Watt</h2>
+              <div class="calc-inputs">
+                <div class="input-group"><label>PK</label><input type="number" id="pk-value" placeholder="e.g. 1.5"></div>
+              </div>
+              <button class="btn btn-primary" onclick="convertPKtoWatt()">Convert</button>
+              <div class="calc-result" id="pk-result"><h4>Result</h4><div class="value">—</div></div>
+            </div>
+            <div class="calc-card">
+              <h2>m³/h → CFM</h2>
+              <div class="calc-inputs">
+                <div class="input-group"><label>m³/h</label><input type="number" id="m3h-value" placeholder="e.g. 1000"></div>
+              </div>
+              <button class="btn btn-primary" onclick="convertM3hToCFM()">Convert</button>
+              <div class="calc-result" id="m3h-result"><h4>Result</h4><div class="value">—</div></div>
+            </div>
+            <div class="calc-card">
+              <h2>CFM → L/s</h2>
+              <div class="calc-inputs">
+                <div class="input-group"><label>CFM</label><input type="number" id="cfm-value" placeholder="e.g. 100"></div>
+              </div>
+              <button class="btn btn-primary" onclick="convertCFMToLs()">Convert</button>
+              <div class="calc-result" id="cfm-result"><h4>Result</h4><div class="value">—</div></div>
+            </div>
+            <div class="calc-card">
+              <h2>Watt → Ampere</h2>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Watt</label><input type="number" id="watt-value" placeholder="e.g. 1500"></div>
+                <div class="input-group"><label>Voltage (V)</label><input type="number" id="watt-voltage" value="230"></div>
+                <div class="input-group"><label>Phase</label><select id="watt-phase"><option value="1">1-Phase</option><option value="3">3-Phase</option></select></div>
+              </div>
+              <button class="btn btn-primary" onclick="convertWattToAmp()">Convert</button>
+              <div class="calc-result" id="watt-result"><h4>Result</h4><div class="value">—</div></div>
+            </div>
+            <div class="calc-card">
+              <h2>Length Converter (mm ↔ cm ↔ m ↔ in)</h2>
+              <div class="calc-inputs">
+                <div class="input-group"><label>Value</label><input type="number" id="len-value" placeholder="e.g. 1000"></div>
+                <div class="input-group"><label>Unit</label><select id="len-unit"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option><option value="in">in</option></select></div>
+              </div>
+              <button class="btn btn-primary" onclick="convertLengthCard()">Convert</button>
+              <div class="calc-result" id="len-result"><h4>Result</h4><div class="value">—</div></div>
+            </div>
+          </div>
+
+          <div class="history-panel">
+            <h3>
+              Calculation History
+              <button class="btn btn-outline" style="padding:0.35rem 0.75rem;font-size:0.8rem;" onclick="MEPHistory.clear()">Clear All</button>
+            </h3>
+            <div class="history-list" id="historyList">
+              <div class="history-empty">No history yet.<br>Perform a calculation and the result will be saved automatically.</div>
             </div>
           </div>
 
@@ -144,6 +484,25 @@
   <!-- ========== FOOTER ========== -->
   <footer class="footer">
     <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>MEP Hazima</h4>
+          <p>MEP engineering design and drafting for Mechanical, Electrical, Plumbing systems. Fast, smart, and efficient solutions.</p>
+        </div>
+        <div>
+          <h4>Menu</h4>
+          <p><a href="index.html">Home</a></p>
+          <p><a href="profile.html">Profile</a></p>
+          <p><a href="index.html#gallery">Gallery</a></p>
+          <p><a href="calculator.html">Calculator</a></p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>Ahmad Fauzan Hazima</p>
+          <p><a href="https://wa.me/6282123501810">+62 821-2350-1810</a></p>
+          <p><a href="mailto:hazima051997@gmail.com">hazima051997@gmail.com</a></p>
+        </div>
+      </div>
       <div class="footer-bottom">
         © 2026 Ahmad Fauzan Hazima — MEP Engineering. All rights reserved.
       </div>
@@ -151,12 +510,21 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/calculators.js"></script>
   <script>
-    function showCategory(catId) {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.MEPHistory && typeof window.MEPHistory.render === 'function') {
+        MEPHistory.render();
+      }
+    });
+
+    function showCategory(cat) {
       document.querySelectorAll('.calc-category').forEach(el => el.style.display = 'none');
-      document.getElementById('cat-' + catId).style.display = 'block';
-      document.querySelectorAll('.calc-nav button').forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`[data-cat="${catId}"]`).classList.add('active');
+      const active = document.getElementById('cat-' + cat);
+      if (active) active.style.display = 'block';
+      document.querySelectorAll('.calc-nav button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.cat === cat);
+      });
     }
   </script>
 </body>
