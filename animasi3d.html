@@ -76,19 +76,45 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+<!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div>
-          <h4>DraftMEP</h4>
+          <h4>MEP DraftMEP</h4>
           <p>MEP engineering design and drafting for Mechanical, Electrical, Plumbing systems. Fast, smart, and efficient solutions.</p>
         </div>
         <div>
           <h4>Menu</h4>
           <p><a href="index.html">Home</a></p>
-          <p><a href="gallery.html">Project Gallery</a></p>
+          <p><a href="gallery.html">Gallery</a></p>
           <p><a href="software.html">Software</a></p>
-          <p><a href="animasi3d.html">Animasi 3D</a></p>
-          <p><a href="about.html">About</a></p>
-          <p><a
+          <p><a href="profile.html">Profile</a></p>
+          <p><a href="calculator.html">Calculator</a></p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>DraftMEP</p>
+          <p><a href="https://wa.me/6282246371931">+62 822-4637-1931</a></p>
+          <p><a href="mailto:draftmepid@gmail.com">draftmepid@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 DraftMEP — MEP Engineering. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+          link.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
