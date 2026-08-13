@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — DraftMEP</title>
+  <meta name="description" content="Meet the DraftMEP team — professional MEP engineers and drafters.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .about-hero {
+      padding: 7rem 0 2.5rem;
+      text-align: center;
+    }
+    .about-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 0.75rem;
+    }
+    .about-hero h1 span {
+      color: var(--primary, #e94560);
+    }
+    .about-hero p {
+      max-width: 640px;
+      margin: 0 auto;
+      color: var(--text-muted, #a8a8b3);
+      line-height: 1.6;
+    }
+
+    .team-section {
+      padding: 1.5rem 0 3.5rem;
+    }
+
+    /* Featured: lebih kecil dari sebelumnya */
+    .team-featured {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.75rem;
+    }
+    .team-card.featured {
+      max-width: 200px;
+      width: 100%;
+    }
+
+    /* Baris 3 kolom — kartu lebih kompak */
+    .team-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.15rem;
+      max-width: 720px;
+      margin: 0 auto 1.15rem;
+    }
+
+    .team-card {
+      background: var(--bg-card, #0f0f14);
+      border: 1px solid var(--border, rgba(255,255,255,0.08));
+      border-radius: 14px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(233, 69, 96, 0.45);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+    }
+
+    /* Foto tidak terlalu besar */
+    .team-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-height: 180px;
+      object-fit: cover;
+      object-position: center 28%;
+      display: block;
+      background: #0c101a;
+    }
+    .team-card.featured .team-photo {
+      max-height: 200px;
+    }
+
+    .team-photo.pos-lower {
+      object-position: center 38%;
+    }
+
+    .team-info {
+      padding: 0.75rem 0.85rem 1rem;
+    }
+    .team-info h3 {
+      font-size: 0.95rem;
+      margin: 0 0 0.25rem;
+      color: var(--text, #f5f5f7);
+    }
+    .team-info .role {
+      font-size: 0.78rem;
+      color: var(--primary-light, #ff7b9c);
+      font-weight: 500;
+    }
+
+    .about-values {
+      padding: 3rem 0 3.5rem;
+      background: #0a0a0e;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.15rem;
+      margin-top: 1.75rem;
+    }
+    .value-card {
+      background: var(--bg-card, #0f0f14);
+      border: 1px solid var(--border, rgba(255,255,255,0.08));
+      border-radius: 12px;
+      padding: 1.35rem;
+      text-align: center;
+    }
+    .value-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .value-card h3 {
+      font-size: 1rem;
+      margin: 0 0 0.4rem;
+    }
+    .value-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted, #a8a8b3);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .team-row {
+        grid-template-columns: 1fr;
+        max-width: 200px;
+      }
+      .team-card.featured {
+        max-width: 180px;
+      }
+      .team-photo {
+        max-height: 180px;
+      }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D0GNT5E5FN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D0GNT5E5FN');
+  </script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html" class="logo">
+          Draft<span>MEP</span>
+        </a>
+        <span class="nav-badge">Calculation Engineer</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-item-dropdown">
+          <a href="gallery.html">Gallery</a>
+          <div class="nav-dropdown">
+            <a href="gallery.html">📁 Project Gallery</a>
+            <a href="software.html">💻 Software Gallery</a>
+            <a href="animasi3d.html">🎬 Animasi 3D Gallery</a>
+          </div>
+        </li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="profile.html" class="nav-highlight">👤 Profile</a></li>
+        <li><a href="calculator.html" class="nav-highlight">🔥 Calculator</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>About <span>DraftMEP</span></h1>
+      <p>
+        We are professional MEP engineers and drafters with hands-on experience across
+        apartments, hotels, commercial buildings, houses, hospitals, and warehouses.
+        We care about quality, speed, and modern tools — including AI — to deliver better results.
+      </p>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="container">
+      <h2 class="section-title">Our Team</h2>
+      <p class="section-subtitle">The people behind every drawing and calculation.</p>
+
+      <!-- Featured: Fauzan -->
+      <div class="team-featured">
+        <div class="team-card featured">
+          <img
+            class="team-photo pos-lower"
+            src="about/Fauzan MEP BIM Modeller.png"
+            alt="Fauzan — MEP BIM Modeller"
+            loading="lazy"
+          >
+          <div class="team-info">
+            <h3>Fauzan</h3>
+            <div class="role">MEP BIM Modeller</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="team-row">
+        <div class="team-card">
+          <img
+            class="team-photo"
+            src="about/Adit EL & EC Designer.png"
+            alt="Adit — EL & EC Designer"
+            loading="lazy"
+          >
+          <div class="team-info">
+            <h3>Adit</h3>
+            <div class="role">EL &amp; EC Designer</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img
+            class="team-photo pos-lower"
+            src="about/Ardhana Senior Electrical Designer.png"
+            alt="Ardhana — Senior Electrical Designer"
+            loading="lazy"
+          >
+          <div class="team-info">
+            <h3>Ardhana</h3>
+            <div class="role">Senior Electrical Designer</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img
+            class="team-photo"
+            src="about/Edi MEP Designer.png"
+            alt="Edi — MEP Designer"
+            loading="lazy"
+          >
+          <div class="team-info">
+            <h3>Edi</h3>
+            <div class="role">MEP Designer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="team-row">
+        <div class="team-card">
+          <img
+            class="team-photo"
+            src="about/Insan Electrical Designer.png"
+            alt="Insan — Electrical Designer"
+            loading="lazy"
+          >
+          <div class="team-info">
+            <h3>Insan</h3>
+            <div class="role">Electrical Designer</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img
+            class="team-photo"
+            src="about/Sandi Mechanical Designer.png"
+            alt="Sandi — Mechanical Designer"
+            loading="lazy"
+          >
+          <div class="team-info">
+            <h3>Sandi</h3>
+            <div class="role">Mechanical Designer</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img
+            class="team-photo"
+            src="about/Yusuf Mechanical Designer.png"
+            alt="Yusuf — Mechanical Designer"
+            loading="lazy"
+          >
+          <div class="team-info">
+            <h3>Yusuf</h3>
+            <div class="role">Mechanical Designer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="about-values">
+    <div class="container">
+      <h2 class="section-title">What We Stand For</h2>
+      <p class="section-subtitle">Simple principles that guide every project.</p>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="icon">🎯</div>
+          <h3>Accuracy</h3>
+          <p>Clear drawings and reliable calculations you can trust on site.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">⚡</div>
+          <h3>Speed</h3>
+          <p>Efficient workflow so your project keeps moving without delay.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🤖</div>
+          <h3>Modern tools</h3>
+          <p>We explore AI and digital tools to work smarter, not harder.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🤝</div>
+          <h3>Partnership</h3>
+          <p>We treat every client project as a shared goal, not just a job.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-box">
+        <h2>Work with us</h2>
+        <p>Need MEP design, drafting, or calculations? Let's talk.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.25rem;">
+          <a href="https://wa.me/6282246371931" target="_blank" class="btn btn-wa">Chat WhatsApp</a>
+          <a href="mailto:draftmepid@gmail.com" class="btn btn-outline">Send Email</a>
+          <a href="index.html#contact" class="btn btn-outline">Contact page</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>DraftMEP</h4>
+          <p>MEP engineering design and drafting for Mechanical, Electrical, Plumbing systems. Fast, smart, and efficient solutions.</p>
+        </div>
+        <div>
+          <h4>Menu</h4>
+          <p><a href="index.html">Home</a></p>
+          <p><a href="gallery.html">Project Gallery</a></p>
+          <p><a href="software.html">Software</a></p>
+          <p><a href="animasi3d.html">Animasi 3D</a></p>
+          <p><a href="service.html">Services</a></p>
+          <p><a href="about.html">About</a></p>
+          <p><a href="calculator.html">Calculator</a></p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>DraftMEP</p>
+          <p><a href="https://wa.me/6282246371931">+62 822-4637-1931</a></p>
+          <p><a href="mailto:draftmepid@gmail.com">draftmepid@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 DraftMEP — MEP Engineering. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

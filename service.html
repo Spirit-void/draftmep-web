@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services & Packages — DraftMEP</title>
+  <meta name="description" content="MEP service packages by DraftMEP — Drawing, Calculation, and Complete packages for residential to commercial projects.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .service-hero {
+      padding: 7rem 0 2.5rem;
+      text-align: center;
+    }
+    .service-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 0.75rem;
+    }
+    .service-hero h1 span {
+      color: var(--accent, #3b82f6);
+    }
+    .service-hero p {
+      max-width: 640px;
+      margin: 0 auto;
+      color: var(--text-muted, #94a3b8);
+      line-height: 1.6;
+    }
+
+    .packages-section {
+      padding: 1rem 0 3.5rem;
+    }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .package-card {
+      background: #121826;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .package-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    }
+    .package-card.featured {
+      border-color: rgba(59, 130, 246, 0.45);
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
+    }
+
+    .package-img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+      background: #0c101a;
+    }
+
+    .package-body {
+      padding: 1.35rem 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .package-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #60a5fa;
+      background: rgba(59, 130, 246, 0.12);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.65rem;
+      width: fit-content;
+    }
+    .package-body h3 {
+      font-size: 1.2rem;
+      margin: 0 0 0.35rem;
+      color: #f1f5f9;
+    }
+    .package-price {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #3b82f6;
+      margin-bottom: 0.75rem;
+    }
+    .package-target {
+      font-size: 0.88rem;
+      color: var(--text-muted, #94a3b8);
+      margin-bottom: 0.35rem;
+      line-height: 1.45;
+    }
+    .package-duration {
+      font-size: 0.85rem;
+      color: #86efac;
+      margin-bottom: 1rem;
+    }
+
+    .package-body h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin: 0 0 0.5rem;
+    }
+    .package-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem;
+      flex: 1;
+    }
+    .package-list li {
+      position: relative;
+      padding-left: 1.15rem;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 0.35rem;
+    }
+    .package-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #3b82f6;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .package-scope {
+      font-size: 0.82rem;
+      color: var(--text-muted, #94a3b8);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .package-scope strong {
+      color: #e2e8f0;
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .package-cta {
+      display: block;
+      text-align: center;
+      padding: 0.7rem 1rem;
+      background: #3b82f6;
+      color: #fff !important;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+    .package-cta:hover {
+      background: #2563eb;
+    }
+
+    .extra-services {
+      padding: 3rem 0 4rem;
+      background: #0c101a;
+    }
+    .extra-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.75rem;
+    }
+    .extra-card {
+      background: #121826;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+    .extra-card .icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .extra-card h3 {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem;
+    }
+    .extra-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted, #94a3b8);
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 900px) {
+      .packages-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D0GNT5E5FN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D0GNT5E5FN');
+  </script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <a href="index.html" class="logo">
+          Draft<span>MEP</span>
+        </a>
+        <span class="nav-badge">Calculation Engineer</span>
+      </div>
+<ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-item-dropdown">
+          <a href="gallery.html">Gallery</a>
+          <div class="nav-dropdown">
+            <a href="gallery.html">📁 Project Gallery</a>
+            <a href="software.html">💻 Software Gallery</a>
+            <a href="animasi3d.html">🎬 Animasi 3D Gallery</a>
+          </div>
+        </li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="profile.html" class="nav-highlight">👤 Profile</a></li>
+        <li><a href="calculator.html" class="nav-highlight">🔥 Calculator</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="service-hero">
+    <div class="container">
+      <h1>Our <span>Packages</span></h1>
+      <p>
+        Clear MEP packages for every project scale — from small houses to large commercial buildings.
+        Choose what fits your needs, or contact us for a custom quote.
+      </p>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="packages-section">
+    <div class="container">
+      <div class="packages-grid">
+
+        <!-- 1. Drawing Package -->
+        <article class="package-card">
+          <img
+            class="package-img"
+            src="service/Drawing Package.png"
+            alt="Drawing Package"
+            loading="lazy"
+          >
+          <div class="package-body">
+            <span class="package-badge">Starter</span>
+            <h3>Drawing Package</h3>
+            <div class="package-price">Rp 1,5 Juta</div>
+            <p class="package-target">
+              <strong>Target:</strong> Rumah tinggal, ruko, warehouse/gudang kecil, office kecil (luas &lt; 350 m²)
+            </p>
+            <p class="package-duration">⏱ Durasi kerja: 3 hari</p>
+
+            <h4>Fasilitas</h4>
+            <ul class="package-list">
+              <li>Jasa konsultasi design</li>
+              <li>Drawing 2D gambar kerja</li>
+            </ul>
+
+            <div class="package-scope">
+              <strong>Cakupan MEP</strong>
+              AC, sumber listrik, panel, lampu, stop kontak, air kotor, air bersih, air panas
+            </div>
+
+            <a href="https://wa.me/6282246371931?text=Halo%20DraftMEP%2C%20saya%20tertarik%20Drawing%20Package" target="_blank" class="package-cta">
+              Order via WhatsApp
+            </a>
+          </div>
+        </article>
+
+        <!-- 2. Calculation Package -->
+        <article class="package-card featured">
+          <img
+            class="package-img"
+            src="service/Calculation Package.png"
+            alt="Calculation Package"
+            loading="lazy"
+          >
+          <div class="package-body">
+            <span class="package-badge">Popular</span>
+            <h3>Calculation Package</h3>
+            <div class="package-price">Rp 5,5 Juta</div>
+            <p class="package-target">
+              <strong>Target:</strong> Proyek menengah (luas 350 m² s.d. 1000 m²)
+            </p>
+            <p class="package-duration">⏱ Durasi kerja: 10 hari</p>
+
+            <h4>Fasilitas</h4>
+            <ul class="package-list">
+              <li>Jasa konsultasi design</li>
+              <li>Drawing kerja</li>
+              <li>RAB / BQ</li>
+            </ul>
+
+            <div class="package-scope">
+              <strong>Cakupan MEP</strong>
+              Air kotor, air bersih, air panas, stop kontak, panel, lampu, internet, CCTV
+            </div>
+
+            <a href="https://wa.me/6282246371931?text=Halo%20DraftMEP%2C%20saya%20tertarik%20Calculation%20Package" target="_blank" class="package-cta">
+              Order via WhatsApp
+            </a>
+          </div>
+        </article>
+
+        <!-- 3. Complete Package -->
+        <article class="package-card">
+          <img
+            class="package-img"
+            src="service/Complete Package.png"
+            alt="Complete Package"
+            loading="lazy"
+          >
+          <div class="package-body">
+            <span class="package-badge">Full service</span>
+            <h3>Complete Package</h3>
+            <div class="package-price">Rp 15 Juta</div>
+            <p class="package-target">
+              <strong>Target:</strong> Kompleks / komersial (luas &gt; 1000 m²)
+            </p>
+            <p class="package-duration">⏱ Durasi kerja: 12 hari</p>
+
+            <h4>Fasilitas</h4>
+            <ul class="package-list">
+              <li>Jasa konsultasi design</li>
+              <li>Drawing kerja</li>
+              <li>RAB / BQ</li>
+              <li>Additional 3D drawing</li>
+            </ul>
+
+            <div class="package-scope">
+              <strong>Cakupan MEP</strong>
+              Air kotor, air bersih, air panas, stop kontak, panel, lampu, internet, CCTV, hingga smarthome
+            </div>
+
+            <a href="https://wa.me/6282246371931?text=Halo%20DraftMEP%2C%20saya%20tertarik%20Complete%20Package" target="_blank" class="package-cta">
+              Order via WhatsApp
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTRA SERVICES (tanpa tombol WA/Email) -->
+  <section class="extra-services">
+    <div class="container">
+      <h2 class="section-title">Custom Digital Services</h2>
+      <p class="section-subtitle">Beyond drawings — we also build tools that speed up your engineering work.</p>
+
+      <div class="extra-grid">
+        <div class="extra-card">
+          <div class="icon">🧮</div>
+          <h3>Engineering Calculator Programming</h3>
+          <p>
+            Kami menyediakan jasa programming pembuatan calculator engineering
+            sesuai kebutuhan Anda — sizing, load, RAB helper, dan tools teknis lainnya.
+          </p>
+        </div>
+        <div class="extra-card">
+          <div class="icon">🌐</div>
+          <h3>Website Development</h3>
+          <p>
+            Pembuatan website profesional untuk perusahaan, portfolio, atau tools internal —
+            tampilan bersih, cepat, dan siap dipakai.
+          </p>
+        </div>
+        <div class="extra-card">
+          <div class="icon">💬</div>
+          <h3>Need something specific?</h3>
+          <p>
+            Ceritakan kebutuhan proyek atau software Anda. Kami bantu sesuaikan paket
+            atau buat solusi custom.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-box">
+        <h2>Ready to start?</h2>
+        <p>Pilih paket di atas atau hubungi kami untuk penawaran khusus.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.25rem;">
+          <a href="https://wa.me/6282246371931" target="_blank" class="btn btn-wa">Chat WhatsApp</a>
+          <a href="mailto:draftmepid@gmail.com" class="btn btn-outline">Send Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>DraftMEP</h4>
+          <p>MEP engineering design and drafting for Mechanical, Electrical, Plumbing systems. Fast, smart, and efficient solutions.</p>
+        </div>
+        <div>
+          <h4>Menu</h4>
+          <p><a href="index.html">Home</a></p>
+          <p><a href="gallery.html">Project Gallery</a></p>
+          <p><a href="software.html">Software</a></p>
+          <p><a href="animasi3d.html">Animasi 3D</a></p>
+          <p><a href="service.html">Services</a></p>
+          <p><a href="about.html">About</a></p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>DraftMEP</p>
+          <p><a href="https://wa.me/6282246371931">+62 822-4637-1931</a></p>
+          <p><a href="mailto:draftmepid@gmail.com">draftmepid@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 DraftMEP — MEP Engineering. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
